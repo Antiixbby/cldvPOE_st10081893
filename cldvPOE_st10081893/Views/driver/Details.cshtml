@@ -1,0 +1,34 @@
+﻿@model cldvPOE_st10081893.Models.tbl_driver
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_driver</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.driverAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.driverAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_person.personName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_person.personName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.driverID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

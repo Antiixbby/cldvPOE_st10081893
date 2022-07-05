@@ -1,0 +1,63 @@
+﻿@model IEnumerable<cldvPOE_st10081893.Models.tbl_rental>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.rentalFee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.endDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_car.carID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_driver.driverID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_inspector.inspectorID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.rentalFee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.endDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_car.carID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_driver.driverID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_inspector.inspectorID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.rentalID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.rentalID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.rentalID })
+        </td>
+    </tr>
+}
+
+</table>

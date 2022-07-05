@@ -1,0 +1,45 @@
+﻿@model IEnumerable<cldvPOE_st10081893.Models.tbl_person>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.personName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emailAddr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mobile)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.personName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emailAddr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mobile)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.personID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.personID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.personID })
+        </td>
+    </tr>
+}
+
+</table>

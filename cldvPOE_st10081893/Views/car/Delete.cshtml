@@ -1,0 +1,56 @@
+﻿@model cldvPOE_st10081893.Models.tbl_car
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tbl_car</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.available)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.available)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kilometersTravelled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kilometersTravelled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.serviceKilometers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serviceKilometers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_modelInfo.model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_modelInfo.model)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

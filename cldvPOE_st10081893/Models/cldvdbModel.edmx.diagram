@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7c29be91539d4018ad8648318798ffcf" Name="Diagram1">
+        <EntityTypeShape EntityType="st10081893cldvModel.authorisedInspector" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="st10081893cldvModel.tbl_bodyType" Width="1.5" PointX="1.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="st10081893cldvModel.tbl_car" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="st10081893cldvModel.tbl_driver" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="st10081893cldvModel.tbl_inspector" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="st10081893cldvModel.tbl_manufacturer" Width="1.5" PointX="1.5" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="st10081893cldvModel.tbl_modelInfo" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="st10081893cldvModel.tbl_person" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="st10081893cldvModel.tbl_rental" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="st10081893cldvModel.tbl_returns" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="st10081893cldvModel.fk_inspectorIDforAuth" ManuallyRouted="false" />
+        <AssociationConnector Association="st10081893cldvModel.fk_bodyTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="st10081893cldvModel.fk_carID_forRental" ManuallyRouted="false" />
+        <AssociationConnector Association="st10081893cldvModel.fk_modelInfoID" ManuallyRouted="false" />
+        <AssociationConnector Association="st10081893cldvModel.fk_driverID_forRental" ManuallyRouted="false" />
+        <AssociationConnector Association="st10081893cldvModel.fk_personID_forDriver" ManuallyRouted="false" />
+        <AssociationConnector Association="st10081893cldvModel.fk_inspectorID_forRental" ManuallyRouted="false" />
+        <AssociationConnector Association="st10081893cldvModel.fk_personID_forInspector" ManuallyRouted="false" />
+        <AssociationConnector Association="st10081893cldvModel.fk_manufacturerID" ManuallyRouted="false" />
+        <AssociationConnector Association="st10081893cldvModel.fk_CIDID_forReturns" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

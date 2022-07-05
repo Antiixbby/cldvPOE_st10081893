@@ -1,0 +1,66 @@
+﻿@model cldvPOE_st10081893.Models.tbl_rental
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_rental</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.rentalFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rentalFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.startDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.startDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.endDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.endDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_car.carID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_car.carID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_driver.driverID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_driver.driverID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_inspector.inspectorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_inspector.inspectorID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.rentalID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

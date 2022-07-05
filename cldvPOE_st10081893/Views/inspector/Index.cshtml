@@ -1,0 +1,39 @@
+﻿@model IEnumerable<cldvPOE_st10081893.Models.tbl_inspector>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.inspectorID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_person.personName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.inspectorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_person.personName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.inspectorID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.inspectorID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.inspectorID })
+        </td>
+    </tr>
+}
+
+</table>

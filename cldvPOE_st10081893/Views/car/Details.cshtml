@@ -1,0 +1,57 @@
+﻿@model cldvPOE_st10081893.Models.tbl_car
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_car</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.carID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.carID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.available)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.available)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kilometersTravelled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kilometersTravelled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.serviceKilometers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serviceKilometers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_modelInfo.model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_modelInfo.model)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.carID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

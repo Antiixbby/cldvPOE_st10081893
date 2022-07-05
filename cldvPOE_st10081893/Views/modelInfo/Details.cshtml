@@ -1,0 +1,42 @@
+﻿@model cldvPOE_st10081893.Models.tbl_modelInfo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_modelInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_bodyType.bodyType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_bodyType.bodyType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_manufacturer.manufacturerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_manufacturer.manufacturerName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.modelInfoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<cldvPOE_st10081893.Models.tbl_car>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.carID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.available)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.kilometersTravelled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.serviceKilometers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_modelInfo.model)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.carID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.available)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.kilometersTravelled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.serviceKilometers)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_modelInfo.model)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.carID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.carID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.carID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="st10081893cldvModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="authorisedInspector">
+          <Key>
+            <PropertyRef Name="authInspecID" />
+          </Key>
+          <Property Name="authInspecID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="inspectorID" Type="int" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbl_bodyType">
+          <Key>
+            <PropertyRef Name="bodyTypeID" />
+          </Key>
+          <Property Name="bodyTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bodyType" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tbl_car">
+          <Key>
+            <PropertyRef Name="carID" />
+          </Key>
+          <Property Name="carID" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="modelInfoID" Type="int" />
+          <Property Name="available" Type="varchar" MaxLength="3" />
+          <Property Name="kilometersTravelled" Type="int" />
+          <Property Name="serviceKilometers" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_driver">
+          <Key>
+            <PropertyRef Name="driverID" />
+          </Key>
+          <Property Name="driverID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="personID" Type="int" />
+          <Property Name="driverAddress" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tbl_inspector">
+          <Key>
+            <PropertyRef Name="inspectorID" />
+          </Key>
+          <Property Name="inspectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="personID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_manufacturer">
+          <Key>
+            <PropertyRef Name="manufacturerID" />
+          </Key>
+          <Property Name="manufacturerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="manufacturerName" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tbl_modelInfo">
+          <Key>
+            <PropertyRef Name="modelInfoID" />
+          </Key>
+          <Property Name="modelInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="manufacturerID" Type="int" />
+          <Property Name="bodyTypeID" Type="int" />
+          <Property Name="model" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbl_person">
+          <Key>
+            <PropertyRef Name="personID" />
+          </Key>
+          <Property Name="personID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="personName" Type="varchar" MaxLength="500" />
+          <Property Name="emailAddr" Type="varchar" MaxLength="300" />
+          <Property Name="mobile" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tbl_rental">
+          <Key>
+            <PropertyRef Name="rentalID" />
+          </Key>
+          <Property Name="rentalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="carID" Type="varchar" MaxLength="6" />
+          <Property Name="inspectorID" Type="int" />
+          <Property Name="driverID" Type="int" />
+          <Property Name="rentalFee" Type="float" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="endDate" Type="date" />
+        </EntityType>
+        <EntityType Name="tbl_returns">
+          <Key>
+            <PropertyRef Name="returnID" />
+          </Key>
+          <Property Name="returnID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rentalID" Type="int" />
+          <Property Name="returnDate" Type="date" />
+          <Property Name="elapsedDate" Type="int" />
+          <Property Name="fine" Type="float" />
+        </EntityType>
+        <Association Name="fk_bodyTypeID">
+          <End Role="tbl_bodyType" Type="Self.tbl_bodyType" Multiplicity="0..1" />
+          <End Role="tbl_modelInfo" Type="Self.tbl_modelInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_bodyType">
+              <PropertyRef Name="bodyTypeID" />
+            </Principal>
+            <Dependent Role="tbl_modelInfo">
+              <PropertyRef Name="bodyTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_carID_forRental">
+          <End Role="tbl_car" Type="Self.tbl_car" Multiplicity="0..1" />
+          <End Role="tbl_rental" Type="Self.tbl_rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_car">
+              <PropertyRef Name="carID" />
+            </Principal>
+            <Dependent Role="tbl_rental">
+              <PropertyRef Name="carID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CIDID_forReturns">
+          <End Role="tbl_rental" Type="Self.tbl_rental" Multiplicity="0..1" />
+          <End Role="tbl_returns" Type="Self.tbl_returns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_rental">
+              <PropertyRef Name="rentalID" />
+            </Principal>
+            <Dependent Role="tbl_returns">
+              <PropertyRef Name="rentalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_driverID_forRental">
+          <End Role="tbl_driver" Type="Self.tbl_driver" Multiplicity="0..1" />
+          <End Role="tbl_rental" Type="Self.tbl_rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_driver">
+              <PropertyRef Name="driverID" />
+            </Principal>
+            <Dependent Role="tbl_rental">
+              <PropertyRef Name="driverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inspectorID_forRental">
+          <End Role="tbl_inspector" Type="Self.tbl_inspector" Multiplicity="0..1" />
+          <End Role="tbl_rental" Type="Self.tbl_rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_inspector">
+              <PropertyRef Name="inspectorID" />
+            </Principal>
+            <Dependent Role="tbl_rental">
+              <PropertyRef Name="inspectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inspectorIDforAuth">
+          <End Role="tbl_inspector" Type="Self.tbl_inspector" Multiplicity="0..1" />
+          <End Role="authorisedInspector" Type="Self.authorisedInspector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_inspector">
+              <PropertyRef Name="inspectorID" />
+            </Principal>
+            <Dependent Role="authorisedInspector">
+              <PropertyRef Name="inspectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_manufacturerID">
+          <End Role="tbl_manufacturer" Type="Self.tbl_manufacturer" Multiplicity="0..1" />
+          <End Role="tbl_modelInfo" Type="Self.tbl_modelInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_manufacturer">
+              <PropertyRef Name="manufacturerID" />
+            </Principal>
+            <Dependent Role="tbl_modelInfo">
+              <PropertyRef Name="manufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_modelInfoID">
+          <End Role="tbl_modelInfo" Type="Self.tbl_modelInfo" Multiplicity="0..1" />
+          <End Role="tbl_car" Type="Self.tbl_car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_modelInfo">
+              <PropertyRef Name="modelInfoID" />
+            </Principal>
+            <Dependent Role="tbl_car">
+              <PropertyRef Name="modelInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_personID_forDriver">
+          <End Role="tbl_person" Type="Self.tbl_person" Multiplicity="0..1" />
+          <End Role="tbl_driver" Type="Self.tbl_driver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_person">
+              <PropertyRef Name="personID" />
+            </Principal>
+            <Dependent Role="tbl_driver">
+              <PropertyRef Name="personID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_personID_forInspector">
+          <End Role="tbl_person" Type="Self.tbl_person" Multiplicity="0..1" />
+          <End Role="tbl_inspector" Type="Self.tbl_inspector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_person">
+              <PropertyRef Name="personID" />
+            </Principal>
+            <Dependent Role="tbl_inspector">
+              <PropertyRef Name="personID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="calculateFine" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rentalID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="st10081893cldvModelStoreContainer">
+          <EntitySet Name="authorisedInspector" EntityType="Self.authorisedInspector" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_bodyType" EntityType="Self.tbl_bodyType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_car" EntityType="Self.tbl_car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_driver" EntityType="Self.tbl_driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_inspector" EntityType="Self.tbl_inspector" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_manufacturer" EntityType="Self.tbl_manufacturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_modelInfo" EntityType="Self.tbl_modelInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_person" EntityType="Self.tbl_person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_rental" EntityType="Self.tbl_rental" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_returns" EntityType="Self.tbl_returns" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_bodyTypeID" Association="Self.fk_bodyTypeID">
+            <End Role="tbl_bodyType" EntitySet="tbl_bodyType" />
+            <End Role="tbl_modelInfo" EntitySet="tbl_modelInfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_carID_forRental" Association="Self.fk_carID_forRental">
+            <End Role="tbl_car" EntitySet="tbl_car" />
+            <End Role="tbl_rental" EntitySet="tbl_rental" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CIDID_forReturns" Association="Self.fk_CIDID_forReturns">
+            <End Role="tbl_rental" EntitySet="tbl_rental" />
+            <End Role="tbl_returns" EntitySet="tbl_returns" />
+          </AssociationSet>
+          <AssociationSet Name="fk_driverID_forRental" Association="Self.fk_driverID_forRental">
+            <End Role="tbl_driver" EntitySet="tbl_driver" />
+            <End Role="tbl_rental" EntitySet="tbl_rental" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inspectorID_forRental" Association="Self.fk_inspectorID_forRental">
+            <End Role="tbl_inspector" EntitySet="tbl_inspector" />
+            <End Role="tbl_rental" EntitySet="tbl_rental" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inspectorIDforAuth" Association="Self.fk_inspectorIDforAuth">
+            <End Role="tbl_inspector" EntitySet="tbl_inspector" />
+            <End Role="authorisedInspector" EntitySet="authorisedInspector" />
+          </AssociationSet>
+          <AssociationSet Name="fk_manufacturerID" Association="Self.fk_manufacturerID">
+            <End Role="tbl_manufacturer" EntitySet="tbl_manufacturer" />
+            <End Role="tbl_modelInfo" EntitySet="tbl_modelInfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_modelInfoID" Association="Self.fk_modelInfoID">
+            <End Role="tbl_modelInfo" EntitySet="tbl_modelInfo" />
+            <End Role="tbl_car" EntitySet="tbl_car" />
+          </AssociationSet>
+          <AssociationSet Name="fk_personID_forDriver" Association="Self.fk_personID_forDriver">
+            <End Role="tbl_person" EntitySet="tbl_person" />
+            <End Role="tbl_driver" EntitySet="tbl_driver" />
+          </AssociationSet>
+          <AssociationSet Name="fk_personID_forInspector" Association="Self.fk_personID_forInspector">
+            <End Role="tbl_person" EntitySet="tbl_person" />
+            <End Role="tbl_inspector" EntitySet="tbl_inspector" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="st10081893cldvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="authorisedInspector">
+          <Key>
+            <PropertyRef Name="authInspecID" />
+          </Key>
+          <Property Name="authInspecID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="inspectorID" Type="Int32" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_inspector" Relationship="Self.fk_inspectorIDforAuth" FromRole="authorisedInspector" ToRole="tbl_inspector" />
+        </EntityType>
+        <EntityType Name="tbl_bodyType">
+          <Key>
+            <PropertyRef Name="bodyTypeID" />
+          </Key>
+          <Property Name="bodyTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bodyType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_modelInfo" Relationship="Self.fk_bodyTypeID" FromRole="tbl_bodyType" ToRole="tbl_modelInfo" />
+        </EntityType>
+        <EntityType Name="tbl_car">
+          <Key>
+            <PropertyRef Name="carID" />
+          </Key>
+          <Property Name="carID" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="modelInfoID" Type="Int32" />
+          <Property Name="available" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="kilometersTravelled" Type="Int32" />
+          <Property Name="serviceKilometers" Type="Int32" />
+          <NavigationProperty Name="tbl_rental" Relationship="Self.fk_carID_forRental" FromRole="tbl_car" ToRole="tbl_rental" />
+          <NavigationProperty Name="tbl_modelInfo" Relationship="Self.fk_modelInfoID" FromRole="tbl_car" ToRole="tbl_modelInfo" />
+        </EntityType>
+        <EntityType Name="tbl_driver">
+          <Key>
+            <PropertyRef Name="driverID" />
+          </Key>
+          <Property Name="driverID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="personID" Type="Int32" />
+          <Property Name="driverAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_rental" Relationship="Self.fk_driverID_forRental" FromRole="tbl_driver" ToRole="tbl_rental" />
+          <NavigationProperty Name="tbl_person" Relationship="Self.fk_personID_forDriver" FromRole="tbl_driver" ToRole="tbl_person" />
+        </EntityType>
+        <EntityType Name="tbl_inspector">
+          <Key>
+            <PropertyRef Name="inspectorID" />
+          </Key>
+          <Property Name="inspectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="personID" Type="Int32" />
+          <NavigationProperty Name="authorisedInspectors" Relationship="Self.fk_inspectorIDforAuth" FromRole="tbl_inspector" ToRole="authorisedInspector" />
+          <NavigationProperty Name="tbl_rental" Relationship="Self.fk_inspectorID_forRental" FromRole="tbl_inspector" ToRole="tbl_rental" />
+          <NavigationProperty Name="tbl_person" Relationship="Self.fk_personID_forInspector" FromRole="tbl_inspector" ToRole="tbl_person" />
+        </EntityType>
+        <EntityType Name="tbl_manufacturer">
+          <Key>
+            <PropertyRef Name="manufacturerID" />
+          </Key>
+          <Property Name="manufacturerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="manufacturerName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_modelInfo" Relationship="Self.fk_manufacturerID" FromRole="tbl_manufacturer" ToRole="tbl_modelInfo" />
+        </EntityType>
+        <EntityType Name="tbl_modelInfo">
+          <Key>
+            <PropertyRef Name="modelInfoID" />
+          </Key>
+          <Property Name="modelInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="manufacturerID" Type="Int32" />
+          <Property Name="bodyTypeID" Type="Int32" />
+          <Property Name="model" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_bodyType" Relationship="Self.fk_bodyTypeID" FromRole="tbl_modelInfo" ToRole="tbl_bodyType" />
+          <NavigationProperty Name="tbl_car" Relationship="Self.fk_modelInfoID" FromRole="tbl_modelInfo" ToRole="tbl_car" />
+          <NavigationProperty Name="tbl_manufacturer" Relationship="Self.fk_manufacturerID" FromRole="tbl_modelInfo" ToRole="tbl_manufacturer" />
+        </EntityType>
+        <EntityType Name="tbl_person">
+          <Key>
+            <PropertyRef Name="personID" />
+          </Key>
+          <Property Name="personID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="personName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="emailAddr" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_driver" Relationship="Self.fk_personID_forDriver" FromRole="tbl_person" ToRole="tbl_driver" />
+          <NavigationProperty Name="tbl_inspector" Relationship="Self.fk_personID_forInspector" FromRole="tbl_person" ToRole="tbl_inspector" />
+        </EntityType>
+        <EntityType Name="tbl_rental">
+          <Key>
+            <PropertyRef Name="rentalID" />
+          </Key>
+          <Property Name="rentalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="carID" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="inspectorID" Type="Int32" />
+          <Property Name="driverID" Type="Int32" />
+          <Property Name="rentalFee" Type="Double" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_car" Relationship="Self.fk_carID_forRental" FromRole="tbl_rental" ToRole="tbl_car" />
+          <NavigationProperty Name="tbl_driver" Relationship="Self.fk_driverID_forRental" FromRole="tbl_rental" ToRole="tbl_driver" />
+          <NavigationProperty Name="tbl_inspector" Relationship="Self.fk_inspectorID_forRental" FromRole="tbl_rental" ToRole="tbl_inspector" />
+          <NavigationProperty Name="tbl_returns" Relationship="Self.fk_CIDID_forReturns" FromRole="tbl_rental" ToRole="tbl_returns" />
+        </EntityType>
+        <EntityType Name="tbl_returns">
+          <Key>
+            <PropertyRef Name="returnID" />
+          </Key>
+          <Property Name="returnID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rentalID" Type="Int32" />
+          <Property Name="returnDate" Type="DateTime" Precision="0" />
+          <Property Name="elapsedDate" Type="Int32" />
+          <Property Name="fine" Type="Double" />
+          <NavigationProperty Name="tbl_rental" Relationship="Self.fk_CIDID_forReturns" FromRole="tbl_returns" ToRole="tbl_rental" />
+        </EntityType>
+        <Association Name="fk_inspectorIDforAuth">
+          <End Role="tbl_inspector" Type="Self.tbl_inspector" Multiplicity="0..1" />
+          <End Role="authorisedInspector" Type="Self.authorisedInspector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_inspector">
+              <PropertyRef Name="inspectorID" />
+            </Principal>
+            <Dependent Role="authorisedInspector">
+              <PropertyRef Name="inspectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_bodyTypeID">
+          <End Role="tbl_bodyType" Type="Self.tbl_bodyType" Multiplicity="0..1" />
+          <End Role="tbl_modelInfo" Type="Self.tbl_modelInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_bodyType">
+              <PropertyRef Name="bodyTypeID" />
+            </Principal>
+            <Dependent Role="tbl_modelInfo">
+              <PropertyRef Name="bodyTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_carID_forRental">
+          <End Role="tbl_car" Type="Self.tbl_car" Multiplicity="0..1" />
+          <End Role="tbl_rental" Type="Self.tbl_rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_car">
+              <PropertyRef Name="carID" />
+            </Principal>
+            <Dependent Role="tbl_rental">
+              <PropertyRef Name="carID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_modelInfoID">
+          <End Role="tbl_modelInfo" Type="Self.tbl_modelInfo" Multiplicity="0..1" />
+          <End Role="tbl_car" Type="Self.tbl_car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_modelInfo">
+              <PropertyRef Name="modelInfoID" />
+            </Principal>
+            <Dependent Role="tbl_car">
+              <PropertyRef Name="modelInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_driverID_forRental">
+          <End Role="tbl_driver" Type="Self.tbl_driver" Multiplicity="0..1" />
+          <End Role="tbl_rental" Type="Self.tbl_rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_driver">
+              <PropertyRef Name="driverID" />
+            </Principal>
+            <Dependent Role="tbl_rental">
+              <PropertyRef Name="driverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_personID_forDriver">
+          <End Role="tbl_person" Type="Self.tbl_person" Multiplicity="0..1" />
+          <End Role="tbl_driver" Type="Self.tbl_driver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_person">
+              <PropertyRef Name="personID" />
+            </Principal>
+            <Dependent Role="tbl_driver">
+              <PropertyRef Name="personID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inspectorID_forRental">
+          <End Role="tbl_inspector" Type="Self.tbl_inspector" Multiplicity="0..1" />
+          <End Role="tbl_rental" Type="Self.tbl_rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_inspector">
+              <PropertyRef Name="inspectorID" />
+            </Principal>
+            <Dependent Role="tbl_rental">
+              <PropertyRef Name="inspectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_personID_forInspector">
+          <End Role="tbl_person" Type="Self.tbl_person" Multiplicity="0..1" />
+          <End Role="tbl_inspector" Type="Self.tbl_inspector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_person">
+              <PropertyRef Name="personID" />
+            </Principal>
+            <Dependent Role="tbl_inspector">
+              <PropertyRef Name="personID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_manufacturerID">
+          <End Role="tbl_manufacturer" Type="Self.tbl_manufacturer" Multiplicity="0..1" />
+          <End Role="tbl_modelInfo" Type="Self.tbl_modelInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_manufacturer">
+              <PropertyRef Name="manufacturerID" />
+            </Principal>
+            <Dependent Role="tbl_modelInfo">
+              <PropertyRef Name="manufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CIDID_forReturns">
+          <End Role="tbl_rental" Type="Self.tbl_rental" Multiplicity="0..1" />
+          <End Role="tbl_returns" Type="Self.tbl_returns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_rental">
+              <PropertyRef Name="rentalID" />
+            </Principal>
+            <Dependent Role="tbl_returns">
+              <PropertyRef Name="rentalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="st10081893cldvEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="authorisedInspectors" EntityType="Self.authorisedInspector" />
+          <EntitySet Name="tbl_bodyType" EntityType="Self.tbl_bodyType" />
+          <EntitySet Name="tbl_car" EntityType="Self.tbl_car" />
+          <EntitySet Name="tbl_driver" EntityType="Self.tbl_driver" />
+          <EntitySet Name="tbl_inspector" EntityType="Self.tbl_inspector" />
+          <EntitySet Name="tbl_manufacturer" EntityType="Self.tbl_manufacturer" />
+          <EntitySet Name="tbl_modelInfo" EntityType="Self.tbl_modelInfo" />
+          <EntitySet Name="tbl_person" EntityType="Self.tbl_person" />
+          <EntitySet Name="tbl_rental" EntityType="Self.tbl_rental" />
+          <EntitySet Name="tbl_returns" EntityType="Self.tbl_returns" />
+          <AssociationSet Name="fk_inspectorIDforAuth" Association="Self.fk_inspectorIDforAuth">
+            <End Role="tbl_inspector" EntitySet="tbl_inspector" />
+            <End Role="authorisedInspector" EntitySet="authorisedInspectors" />
+          </AssociationSet>
+          <AssociationSet Name="fk_bodyTypeID" Association="Self.fk_bodyTypeID">
+            <End Role="tbl_bodyType" EntitySet="tbl_bodyType" />
+            <End Role="tbl_modelInfo" EntitySet="tbl_modelInfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_carID_forRental" Association="Self.fk_carID_forRental">
+            <End Role="tbl_car" EntitySet="tbl_car" />
+            <End Role="tbl_rental" EntitySet="tbl_rental" />
+          </AssociationSet>
+          <AssociationSet Name="fk_modelInfoID" Association="Self.fk_modelInfoID">
+            <End Role="tbl_modelInfo" EntitySet="tbl_modelInfo" />
+            <End Role="tbl_car" EntitySet="tbl_car" />
+          </AssociationSet>
+          <AssociationSet Name="fk_driverID_forRental" Association="Self.fk_driverID_forRental">
+            <End Role="tbl_driver" EntitySet="tbl_driver" />
+            <End Role="tbl_rental" EntitySet="tbl_rental" />
+          </AssociationSet>
+          <AssociationSet Name="fk_personID_forDriver" Association="Self.fk_personID_forDriver">
+            <End Role="tbl_person" EntitySet="tbl_person" />
+            <End Role="tbl_driver" EntitySet="tbl_driver" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inspectorID_forRental" Association="Self.fk_inspectorID_forRental">
+            <End Role="tbl_inspector" EntitySet="tbl_inspector" />
+            <End Role="tbl_rental" EntitySet="tbl_rental" />
+          </AssociationSet>
+          <AssociationSet Name="fk_personID_forInspector" Association="Self.fk_personID_forInspector">
+            <End Role="tbl_person" EntitySet="tbl_person" />
+            <End Role="tbl_inspector" EntitySet="tbl_inspector" />
+          </AssociationSet>
+          <AssociationSet Name="fk_manufacturerID" Association="Self.fk_manufacturerID">
+            <End Role="tbl_manufacturer" EntitySet="tbl_manufacturer" />
+            <End Role="tbl_modelInfo" EntitySet="tbl_modelInfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CIDID_forReturns" Association="Self.fk_CIDID_forReturns">
+            <End Role="tbl_rental" EntitySet="tbl_rental" />
+            <End Role="tbl_returns" EntitySet="tbl_returns" />
+          </AssociationSet>
+          <FunctionImport Name="calculateFine" ReturnType="Collection(Int32)">
+            <Parameter Name="rentalID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="st10081893cldvModelStoreContainer" CdmEntityContainer="st10081893cldvEntities">
+          <EntitySetMapping Name="authorisedInspectors">
+            <EntityTypeMapping TypeName="st10081893cldvModel.authorisedInspector">
+              <MappingFragment StoreEntitySet="authorisedInspector">
+                <ScalarProperty Name="authInspecID" ColumnName="authInspecID" />
+                <ScalarProperty Name="inspectorID" ColumnName="inspectorID" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_bodyType">
+            <EntityTypeMapping TypeName="st10081893cldvModel.tbl_bodyType">
+              <MappingFragment StoreEntitySet="tbl_bodyType">
+                <ScalarProperty Name="bodyTypeID" ColumnName="bodyTypeID" />
+                <ScalarProperty Name="bodyType" ColumnName="bodyType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_car">
+            <EntityTypeMapping TypeName="st10081893cldvModel.tbl_car">
+              <MappingFragment StoreEntitySet="tbl_car">
+                <ScalarProperty Name="carID" ColumnName="carID" />
+                <ScalarProperty Name="modelInfoID" ColumnName="modelInfoID" />
+                <ScalarProperty Name="available" ColumnName="available" />
+                <ScalarProperty Name="kilometersTravelled" ColumnName="kilometersTravelled" />
+                <ScalarProperty Name="serviceKilometers" ColumnName="serviceKilometers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_driver">
+            <EntityTypeMapping TypeName="st10081893cldvModel.tbl_driver">
+              <MappingFragment StoreEntitySet="tbl_driver">
+                <ScalarProperty Name="driverID" ColumnName="driverID" />
+                <ScalarProperty Name="personID" ColumnName="personID" />
+                <ScalarProperty Name="driverAddress" ColumnName="driverAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_inspector">
+            <EntityTypeMapping TypeName="st10081893cldvModel.tbl_inspector">
+              <MappingFragment StoreEntitySet="tbl_inspector">
+                <ScalarProperty Name="inspectorID" ColumnName="inspectorID" />
+                <ScalarProperty Name="personID" ColumnName="personID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_manufacturer">
+            <EntityTypeMapping TypeName="st10081893cldvModel.tbl_manufacturer">
+              <MappingFragment StoreEntitySet="tbl_manufacturer">
+                <ScalarProperty Name="manufacturerID" ColumnName="manufacturerID" />
+                <ScalarProperty Name="manufacturerName" ColumnName="manufacturerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_modelInfo">
+            <EntityTypeMapping TypeName="st10081893cldvModel.tbl_modelInfo">
+              <MappingFragment StoreEntitySet="tbl_modelInfo">
+                <ScalarProperty Name="modelInfoID" ColumnName="modelInfoID" />
+                <ScalarProperty Name="manufacturerID" ColumnName="manufacturerID" />
+                <ScalarProperty Name="bodyTypeID" ColumnName="bodyTypeID" />
+                <ScalarProperty Name="model" ColumnName="model" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_person">
+            <EntityTypeMapping TypeName="st10081893cldvModel.tbl_person">
+              <MappingFragment StoreEntitySet="tbl_person">
+                <ScalarProperty Name="personID" ColumnName="personID" />
+                <ScalarProperty Name="personName" ColumnName="personName" />
+                <ScalarProperty Name="emailAddr" ColumnName="emailAddr" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_rental">
+            <EntityTypeMapping TypeName="st10081893cldvModel.tbl_rental">
+              <MappingFragment StoreEntitySet="tbl_rental">
+                <ScalarProperty Name="rentalID" ColumnName="rentalID" />
+                <ScalarProperty Name="carID" ColumnName="carID" />
+                <ScalarProperty Name="inspectorID" ColumnName="inspectorID" />
+                <ScalarProperty Name="driverID" ColumnName="driverID" />
+                <ScalarProperty Name="rentalFee" ColumnName="rentalFee" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_returns">
+            <EntityTypeMapping TypeName="st10081893cldvModel.tbl_returns">
+              <MappingFragment StoreEntitySet="tbl_returns">
+                <ScalarProperty Name="returnID" ColumnName="returnID" />
+                <ScalarProperty Name="rentalID" ColumnName="rentalID" />
+                <ScalarProperty Name="returnDate" ColumnName="returnDate" />
+                <ScalarProperty Name="elapsedDate" ColumnName="elapsedDate" />
+                <ScalarProperty Name="fine" ColumnName="fine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="calculateFine" FunctionName="st10081893cldvModel.Store.calculateFine" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

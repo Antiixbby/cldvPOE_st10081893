@@ -1,0 +1,51 @@
+﻿@model IEnumerable<cldvPOE_st10081893.Models.tbl_returns>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.returnDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.elapsedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_rental.carID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.returnDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.elapsedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_rental.carID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.returnID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.returnID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.returnID })
+        </td>
+    </tr>
+}
+
+</table>
